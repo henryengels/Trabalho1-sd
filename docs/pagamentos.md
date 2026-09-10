@@ -205,6 +205,25 @@ O exemplo usa uma única VM. Os dois servidores rodam na mesma máquina, por iss
 `CONTAS_HOST = "localhost"` não precisa ser alterado. Somente a porta 9090
 precisa estar liberada no firewall para o IP do cliente.
 
+Caso use mais de uma VM e necessite trocar `CONTAS_HOST = IP_INTERNO_VM`. Edite no código dentro da vm que irá fazer a requisição para o módulo de contas
+
+```bash
+sed -i 's/CONTAS_HOST = "localhost"/CONTAS_HOST = "IP_INTERNO_A_SER_SUBSTITUIDO"/' \
+pagamento-service\src\main\java\aula\sd\fintech\pagamento\PagamentoServiceImpl.java
+```
+
+Valide se a alteração foi aplicada com:
+
+```bash
+git diff
+```
+
+Se digitar o IP errado na hora de executar o comando, apenas reverta com o seguinte comando:
+
+```bash
+git checkout .
+```
+
 Acesse a VM por SSH e instale as dependências:
 
 ```bash

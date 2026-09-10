@@ -14,11 +14,15 @@ import java.util.Map;
 // Guarda os saldos em memória e é o único ponto que altera as contas.
 public class ContaServiceImpl extends ContaServiceGrpc.ContaServiceImplBase {
 
-    // Saldos iniciais em centavos: ana = R$ 1.000,00, bruno = R$ 500,00, carla = R$ 0,00.
+    // Saldos iniciais em reais: ana = R$ 1.000,00, bruno = R$ 500,00, carla = R$ 0,00.
     private final Map<String, Long> saldos = new HashMap<>(Map.of(
             "ana", 100_000L,
             "bruno", 50_000L,
-            "carla", 0L
+            "carla", 0L,
+            "sávio", 100000_000L,
+            "henry", 100_050L,
+            "matheus", 1000_000L,
+            "paulo", 1000_000L
     ));
 
     @Override

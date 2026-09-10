@@ -18,5 +18,4 @@ Compilar e executar:
 ```
 
 O guia completo, incluindo a execução com uma VM no Google Cloud, está em
-[docs/pagamentos.md](docs/pagamentos.md). As aulas originais de referência
-estão em [docs/aula-3.md](docs/aula-3.md) e [docs/aula-4.md](docs/aula-4.md).
+[docs/pagamentos.md](docs/pagamentos.md).
