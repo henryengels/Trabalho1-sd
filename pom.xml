@@ -87,6 +87,37 @@
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>${exec.maven.plugin.version}</version>
                 </plugin>
+                <!-- Lido apenas pelo m2e (VS Code Java / Eclipse); o Maven de linha de comando ignora.
+                     O protobuf-maven-plugin pede ao m2e para rodar o protoc a cada mudança no workspace
+                     (runOnIncremental=true). Isso faz a IDE apagar/regenerar target/ ao mesmo tempo que o
+                     ./mvnw roda, causando "Unable to clean up temporary proto file directory" e
+                     "error reading ...Grpc.java" no Windows. Aqui desligamos essa execução na IDE:
+                     os fontes gerados continuam vindo do ./mvnw e são expostos pelo build-helper. -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.xolstice.maven.plugins</groupId>
+                                        <artifactId>protobuf-maven-plugin</artifactId>
+                                        <versionRange>[0.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>compile</goal>
+                                            <goal>compile-custom</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>

@@ -1,14 +1,6 @@
 # Fintech de pagamentos via gRPC
 
-## 1. Objetivo
-
-Adaptar o exemplo de pedidos e estoque das aulas 3 e 4 para uma fintech de
-pagamentos. Um serviço recebe a solicitação de processamento de uma transação e
-o outro valida e processa a transação contra os saldos das contas. Os dois
-servidores usam Java puro com gRPC, sem Spring, e o cliente é um menu de
-terminal.
-
-## 2. Conceitos importantes
+## 1. Conceitos importantes
 
 - `contratos-grpc` contém os arquivos `.proto` compartilhados e gera as classes
   Java usadas pelos outros módulos.
@@ -31,7 +23,7 @@ terminal.
 - Se o serviço de contas estiver desligado, a chamada falha com o erro gRPC
   padrão. Não há fallback, retry ou tratamento especial.
 
-## 3. Arquitetura e configurações necessárias
+## 2. Arquitetura e configurações necessárias
 
 ```text
 ClientePagamentosGrpc (menu no terminal)
@@ -81,7 +73,7 @@ Host e portas não são recebidos por argumentos nem por variáveis de ambiente.
 Para alterar um desses valores, edite a constante na classe indicada e recompile
 o projeto. Contas e valores são digitados no menu do cliente.
 
-## 4. Como compilar
+## 3. Como compilar
 
 Execute localmente, na raiz do projeto:
 
@@ -108,7 +100,7 @@ Se aparecer `Unable to clean up temporary proto file directory` no Windows,
 execute o comando novamente. É um bloqueio temporário de arquivo, não um erro
 de código.
 
-## 5. Como executar
+## 4. Como executar
 
 Abra três terminais na raiz do projeto e respeite a ordem abaixo.
 
@@ -158,7 +150,7 @@ Roteiro sugerido para a demonstração:
 Os saldos ficam em memória. Reiniciar o serviço de contas restaura os valores
 iniciais.
 
-## 6. Resultados esperados
+## 5. Resultados esperados
 
 O servidor de contas inicia com:
 
@@ -207,7 +199,7 @@ Saldo da origem: R$ 650,50
 
 O UUID muda a cada chamada.
 
-## 7. Execução no Google Cloud
+## 6. Execução no Google Cloud
 
 O exemplo usa uma única VM. Os dois servidores rodam na mesma máquina, por isso
 `CONTAS_HOST = "localhost"` não precisa ser alterado. Somente a porta 9090
@@ -272,7 +264,7 @@ O número acima é apenas um exemplo. Depois da alteração, execute localmente:
 O cliente usa plaintext porque o exemplo demonstra somente o fluxo básico de
 gRPC e Protobuf.
 
-## 8. Erros comuns e identificação
+## 7. Erros comuns e identificação
 
 | Sintoma                                              | Como identificar                                                        | Ação                                                              |
 |------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------|
@@ -286,7 +278,7 @@ gRPC e Protobuf.
 | `Valor inválido` no cliente                          | Texto digitado não é um número ou tem mais de duas casas decimais       | Digite no formato `150.50` ou `150,50`                            |
 | Acentos trocados no terminal do Windows              | O console não está em UTF-8                                             | Execute `chcp 65001` antes de rodar o cliente                     |
 
-## 9. Encerramento e limpeza dos recursos
+## 8. Encerramento e limpeza dos recursos
 
 Interrompa os servidores com `Ctrl+C`. Se o serviço de contas estiver em segundo
 plano, encerre com:
