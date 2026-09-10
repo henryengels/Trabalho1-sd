@@ -1,0 +1,46 @@
+// Usa a versão 3 da linguagem Protocol Buffers.
+syntax = "proto3";
+
+// Namespace do contrato Protobuf. Não precisa ser igual ao pacote Java.
+package conta;
+
+// Gera uma classe Java separada para cada mensagem e serviço.
+option java_multiple_files = true;
+// Pacote das classes Java criadas a partir deste arquivo.
+option java_package = "aula.sd.fintech.grpc";
+
+// Serviço interno que guarda os saldos e é o único que altera as contas.
+service ContaService {
+  // Devolve o saldo atual de uma conta.
+  rpc ConsultarSaldo(ConsultarSaldoRequest)
+      returns (ConsultarSaldoResponse);
+
+  // Valida e efetiva uma transferência entre duas contas.
+  rpc Transferir(TransferirRequest)
+      returns (TransferirResponse);
+}
+
+message ConsultarSaldoRequest {
+  string conta = 1;
+}
+
+message ConsultarSaldoResponse {
+  string conta = 1;
+  bool existe = 2;
+  // Valores monetários trafegam em centavos (inteiro) para evitar erros de
+  // arredondamento de ponto flutuante.
+  int64 saldo_centavos = 3;
+  string mensagem = 4;
+}
+
+message TransferirRequest {
+  string conta_origem = 1;
+  string conta_destino = 2;
+  int64 valor_centavos = 3;
+}
+
+message TransferirResponse {
+  bool aprovada = 1;
+  string mensagem = 2;
+  int64 saldo_origem_centavos = 3;
+}

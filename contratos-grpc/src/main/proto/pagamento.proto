@@ -1,0 +1,40 @@
+// Usa a versão 3 da linguagem Protocol Buffers.
+syntax = "proto3";
+
+// Namespace do contrato Protobuf. Não precisa ser igual ao pacote Java.
+package pagamento;
+
+// Reaproveita as mensagens de saldo definidas no contrato de contas.
+import "conta.proto";
+
+// Gera uma classe Java separada para cada mensagem e serviço.
+option java_multiple_files = true;
+// Pacote das classes Java criadas a partir deste arquivo.
+option java_package = "aula.sd.fintech.grpc";
+
+// Serviço exposto ao cliente. Recebe transações e repassa ao serviço de contas.
+service PagamentoService {
+  // RPC unário: recebe uma transação e devolve uma única resposta.
+  rpc ProcessarTransacao(ProcessarTransacaoRequest)
+      returns (ProcessarTransacaoResponse);
+
+  // Consulta o saldo de uma conta por meio do serviço de contas.
+  rpc ConsultarSaldo(conta.ConsultarSaldoRequest)
+      returns (conta.ConsultarSaldoResponse);
+}
+
+// Mensagem enviada pelo cliente ao chamar ProcessarTransacao.
+message ProcessarTransacaoRequest {
+  // Os números identificam os campos.
+  string conta_origem = 1;
+  string conta_destino = 2;
+  int64 valor_centavos = 3;
+}
+
+// Mensagem devolvida pelo servidor após processar a transação.
+message ProcessarTransacaoResponse {
+  string transacao_id = 1;
+  string status = 2;
+  string mensagem = 3;
+  int64 saldo_origem_centavos = 4;
+}
