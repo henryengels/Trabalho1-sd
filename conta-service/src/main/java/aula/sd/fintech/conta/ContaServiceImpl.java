@@ -19,7 +19,7 @@ public class ContaServiceImpl extends ContaServiceGrpc.ContaServiceImplBase {
             "ana", 100_000L,
             "bruno", 50_000L,
             "carla", 0L,
-            "sávio", 100000_000L,
+            "savio", 100000_000L,
             "henry", 100_050L,
             "matheus", 1000_000L,
             "paulo", 1000_000L
